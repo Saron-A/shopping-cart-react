@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
+import Cart from "./Cart.jsx"; // Import Cart component if needed
 
-const Products = () => {
+const Products = ({ setCart }) => {
   const [products, setProducts] = useState([]); // we are going to have objects in this array
-  const [count, setCount] = useState(0); // this is for the quantity of the product
+
+  const [quantities, setQuantities] = useState({}); // this will hold the quantities for all products
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -19,13 +22,25 @@ const Products = () => {
     fetchProducts();
   }, []);
 
-  const incrementProduct = () => {
-    setCount((prevCount) => prevCount + 1);
+  const handleSubmit = (e, product) => {
+    e.preventDefault();
+    const quantity = quantities[product.id] || 0; //access the quantity for the specific product by its id
+    if (quantity <= 0) return; // Prevent adding products with zero or negative quantity
+    const itemToAdd = { ...product, quantity }; // Create a new item with the product details and quantity
+    setCart((prevCart) => [...prevCart, itemToAdd]); // Add the new item to the cart
   };
 
-  const decrementProduct = () => {
-    setCount((prevCount) => (prevCount > 0 ? prevCount - 1 : 0));
+  const incrementProduct = (id) => {
+    setQuantities((prevQ) => ({ ...prevQ, [id]: (prevQ[id] || 0) + 1 }));
   };
+
+  const decrementProduct = (id) => {
+    setQuantities((prevQ) => ({
+      ...prevQ,
+      [id]: prevQ[id] > 0 ? prevQ[id] - 1 : 0,
+    }));
+  };
+
   return (
     <div className="products">
       <h2>Products</h2>
@@ -47,17 +62,24 @@ const Products = () => {
               </p>
             </div>
             <div className="extras">
-              <form action="">
+              <form action="" onSubmit={(e) => handleSubmit(e, product)}>
                 <input
-                  type="text"
+                  type="number"
                   className="quantity"
                   placeholder="Enter quantity"
-                  value={count}
-                  onChange={(e) => setCount(e.target.value)}
+                  value={quantities[product.id] || 0}
+                  onChange={(e) =>
+                    setQuantities({
+                      ...quantities,
+                      [product.id]: e.target.value,
+                    })
+                  }
                 />
-                <button onClick={incrementProduct}>+</button>
-                <button onClick={decrementProduct}>-</button>
-                <button type="submit">Add to Cart</button>
+                <button onClick={() => incrementProduct(product.id)}>+</button>
+                <button onClick={() => decrementProduct(product.id)}>-</button>
+                <button type="submit">
+                  <Link to="shopping">Add to Cart</Link>
+                </button>
               </form>
             </div>
           </div>
