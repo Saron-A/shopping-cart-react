@@ -29,7 +29,7 @@ const Products = ({ setCart }) => {
     if (quantity <= 0) return; // Prevent adding products with zero or negative quantity
     const itemToAdd = { ...product, quantity }; // Create a new item with the product details and quantity
     setCart((prevCart) => [...prevCart, itemToAdd]); // Add the new item to the cart
-    navigate("/shopping"); // Navigate to the shopping page
+    navigate("/shopping/cart"); // Navigate to the shopping page
   };
 
   const incrementProduct = (id) => {
@@ -94,7 +94,7 @@ const Products = ({ setCart }) => {
             </div>
 
             <Link
-              to="shopping"
+              to="/shopping/cart"
               style={{
                 position: "fixed",
                 bottom: "2rem",

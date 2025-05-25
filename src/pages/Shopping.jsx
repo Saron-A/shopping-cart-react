@@ -1,13 +1,12 @@
 import React from "react";
-import { useOutletContext } from "react-router-dom";
-import Cart from "../components/Cart.jsx";
+import { Outlet, useOutletContext } from "react-router-dom";
 
 const Shopping = () => {
   const { cart, setCart } = useOutletContext();
 
   return (
     <div>
-      <Cart cart={cart} setCart={setCart} />
+      <Outlet context={{ cart, setCart }} />
     </div>
   );
 };
