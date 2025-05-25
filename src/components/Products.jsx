@@ -92,6 +92,22 @@ const Products = ({ setCart }) => {
                 <button type="submit">Add to Cart</button>
               </form>
             </div>
+
+            <Link
+              to="shopping"
+              style={{
+                position: "fixed",
+                bottom: "2rem",
+                right: "1rem",
+                border: "0.5px solid black",
+                borderRadius: "1.5rem",
+                padding: "0.5rem 1rem",
+                textDecoration: "none",
+                backgroundColor: "#f0f0f0",
+              }}
+            >
+              Go to Cart
+            </Link>
           </div>
         </li>
       ))}

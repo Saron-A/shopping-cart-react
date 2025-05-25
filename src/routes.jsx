@@ -9,7 +9,7 @@ const routes = [
     element: <Layout />,
     children: [
       {
-        index: true,
+        index: true, //default route
         element: <Homepage />,
       },
       {
