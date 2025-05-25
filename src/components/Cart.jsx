@@ -9,6 +9,7 @@ const Cart = () => {
   const handleCheckout = () => {
     if (cart.length <= 0) {
       alert("Your cart is empty!");
+      navigate("/");
       return;
     }
 
