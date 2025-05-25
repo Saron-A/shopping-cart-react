@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Cart from "./Cart.jsx"; // Import Cart component if needed
 
 const Products = ({ setCart }) => {
+  const navigate = useNavigate();
   const [products, setProducts] = useState([]); // we are going to have objects in this array
 
   const [quantities, setQuantities] = useState({}); // this will hold the quantities for all products
@@ -28,6 +29,7 @@ const Products = ({ setCart }) => {
     if (quantity <= 0) return; // Prevent adding products with zero or negative quantity
     const itemToAdd = { ...product, quantity }; // Create a new item with the product details and quantity
     setCart((prevCart) => [...prevCart, itemToAdd]); // Add the new item to the cart
+    navigate("/shopping"); // Navigate to the shopping page
   };
 
   const incrementProduct = (id) => {
@@ -75,11 +77,19 @@ const Products = ({ setCart }) => {
                     })
                   }
                 />
-                <button onClick={() => incrementProduct(product.id)}>+</button>
-                <button onClick={() => decrementProduct(product.id)}>-</button>
-                <button type="submit">
-                  <Link to="shopping">Add to Cart</Link>
+                <button
+                  type="button"
+                  onClick={() => incrementProduct(product.id)}
+                >
+                  +
                 </button>
+                <button
+                  type="button"
+                  onClick={() => decrementProduct(product.id)}
+                >
+                  -
+                </button>
+                <button type="submit">Add to Cart</button>
               </form>
             </div>
           </div>
