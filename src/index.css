@@ -139,10 +139,11 @@ button:hover {
   text-decoration: none;
   background-color: #dcdcdc;
   color: #3d3d3d;
+  transition: all 0.2s ease-in-out;
 }
 
-.cart-link:hover {
-  transform: scale(1.05);
+.links:hover {
+  transform: scale(1.1);
   cursor: pointer;
   color: white;
   background-color: grey;
