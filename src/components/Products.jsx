@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import Cart from "./Cart.jsx"; // Import Cart component if needed
+import "../index.css"; // Import your CSS styles
 
 const Products = ({ setCart }) => {
   const navigate = useNavigate();
@@ -45,23 +46,29 @@ const Products = ({ setCart }) => {
 
   return (
     <div className="products">
-      <h2>Products</h2>
       {products.map((product) => (
         <li key={product.id}>
           <div className="product">
             <div className="fetched-data">
-              <img src={product.image} alt="" height="100px" width="100px" />
               <h3>{product.title}</h3>
-              <p className="desc">{product.description}</p>
-              <p className="price">Price: {product.price}$</p>
-              <p className="rating">Rating: {product.rating.rate}/5</p>
-              <p className="count">
-                {product.rating.count > 10
-                  ? "In Stock"
-                  : product.rating.count <= 10 && product.rating.count > 0
-                  ? product.rating.count
-                  : "Out of Stock"}
-              </p>
+              <div className="others">
+                <div className="img-desc">
+                  <img src={product.image} alt="" />
+                  <p className="desc">{product.description}</p>
+                </div>
+
+                <div className="info">
+                  <p className="price">Price: {product.price}$</p>
+                  <p className="rating">Rating: {product.rating.rate}/5</p>
+                  <p className="count">
+                    {product.rating.count > 10
+                      ? "In Stock"
+                      : product.rating.count <= 10 && product.rating.count > 0
+                      ? product.rating.count
+                      : "Out of Stock"}
+                  </p>
+                </div>
+              </div>
             </div>
             <div className="extras">
               <form action="" onSubmit={(e) => handleSubmit(e, product)}>
@@ -92,25 +99,12 @@ const Products = ({ setCart }) => {
                 <button type="submit">Add to Cart</button>
               </form>
             </div>
-
-            <Link
-              to="/shopping/cart"
-              style={{
-                position: "fixed",
-                bottom: "2rem",
-                right: "1rem",
-                border: "0.5px solid black",
-                borderRadius: "1.5rem",
-                padding: "0.5rem 1rem",
-                textDecoration: "none",
-                backgroundColor: "#f0f0f0",
-              }}
-            >
-              Go to Cart
-            </Link>
           </div>
         </li>
       ))}
+      <Link className="links" to="/shopping/cart" style={{}}>
+        Go to Cart
+      </Link>
     </div>
   );
 };

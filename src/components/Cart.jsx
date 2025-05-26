@@ -48,19 +48,7 @@ const Cart = () => {
         Check Out
       </button>
 
-      <Link
-        to="/"
-        style={{
-          position: "fixed",
-          bottom: "2rem",
-          right: "1rem",
-          border: "1px solid black",
-          borderRadius: "1rem",
-          padding: "0.5rem",
-          textDecoration: "none",
-          backgroundColor: "#f0f0f0",
-        }}
-      >
+      <Link to="/" className="links">
         Go back to Products
       </Link>
     </div>
