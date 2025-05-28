@@ -9,6 +9,7 @@ const Products = ({ setCart }) => {
   const [products, setProducts] = useState([]); // we are going to have objects in this array
 
   const [quantities, setQuantities] = useState({}); // this will hold the quantities for all products
+  const [clicked, setClicked] = useState({}); // this will be used to track if the user has clicked on a product
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -42,6 +43,10 @@ const Products = ({ setCart }) => {
       ...prevQ,
       [id]: prevQ[id] > 0 ? prevQ[id] - 1 : 0,
     }));
+  };
+
+  const handleClick = (id) => {
+    setClicked({ ...clicked, [id]: true });
   };
 
   return (
@@ -96,8 +101,20 @@ const Products = ({ setCart }) => {
                 >
                   -
                 </button>
-                <button className="addtocart" type="submit">
-                  Add to Cart
+                <button
+                  className="addtocart"
+                  onClick={() => handleClick(product.id)}
+                  type="submit"
+                  style={{
+                    backgroundColor: clicked[product.id] ? "green" : "#f6f6f6",
+                    color: clicked[product.id] ? "white" : "#3d3d3d",
+                    padding: "10px 20px",
+                    border: "none",
+                    borderRadius: "5px",
+                    cursor: "pointer",
+                  }}
+                >
+                  {clicked[product.id] ? " Added!" : "  Add to Cart"}
                 </button>
               </form>
             </div>
