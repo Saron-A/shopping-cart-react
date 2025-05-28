@@ -1,5 +1,6 @@
 import React from "react";
-import { useOutletContext } from "react-router-dom";
+import { useOutletContext, Link } from "react-router-dom";
+import "../index.css"; // Import your CSS styles
 
 const Checkout = () => {
   const { cart } = useOutletContext();
@@ -35,6 +36,12 @@ const Checkout = () => {
           $
         </h2>
       </div>
+      <Link className="links upper" to="/shopping/cart">
+        Back to Cart
+      </Link>
+      <Link className="links" to="/">
+        Back to Products
+      </Link>
     </div>
   );
 };

@@ -39,7 +39,8 @@
   padding: 1rem;
   /* background-color: #92b5a3; */
   /* color: beige; */
-  background-color: #989898;
+  /* background-color: #989898; */
+  background-color: rgba(0, 0, 0, 0.795);
   color: white;
 }
 
@@ -144,6 +145,20 @@ button:hover {
   transition: all 0.2s ease-in-out;
 }
 
+.links.upper {
+  position: fixed;
+  bottom: 5rem;
+  right: 1rem;
+  border: none;
+  outline: none;
+  border-radius: 1.5rem;
+  padding: 0.5rem 1rem;
+  text-decoration: none;
+  background-color: #dcdcdc;
+  color: #3d3d3d;
+  transition: all 0.2s ease-in-out;
+}
+
 .links:hover {
   transform: scale(1.1);
   cursor: pointer;
@@ -164,3 +179,5 @@ button:hover {
   /* color: beige; */
   color: #656565;
 }
+
+/* Cart page */
