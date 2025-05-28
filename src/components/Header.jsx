@@ -5,7 +5,9 @@ const Header = () => {
   return (
     <div className="header">
       <h1>Mini Shopping Cart</h1>
-      <span className="span-header">Stores at your fingertips!</span>
+      <span className="span-header">
+        Your favorite items right at your fingertips!
+      </span>
     </div>
   );
 };
