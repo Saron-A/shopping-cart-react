@@ -1,6 +1,6 @@
 import React from "react";
 import { Link, useNavigate, useOutletContext } from "react-router-dom";
-import "../index.css"; // Import your CSS styles
+import "../index.css";
 
 const Cart = () => {
   const { cart, setCart } = useOutletContext();
