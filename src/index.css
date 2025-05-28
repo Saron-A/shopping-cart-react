@@ -291,6 +291,7 @@ button:clicked {
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
   width: 50%;
   margin: 0 auto;
+  font-size: smaller;
 }
 
 .checkout-list {
