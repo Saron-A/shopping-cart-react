@@ -35,13 +35,13 @@ const Products = ({ setCart }) => {
   };
 
   const incrementProduct = (id) => {
-    setQuantities((prevQ) => ({ ...prevQ, [id]: (prevQ[id] || 0) + 1 }));
+    setQuantities((prevQ) => ({ ...prevQ, [id]: (prevQ[id] || 1) + 1 }));
   };
 
   const decrementProduct = (id) => {
     setQuantities((prevQ) => ({
       ...prevQ,
-      [id]: prevQ[id] > 0 ? prevQ[id] - 1 : 0,
+      [id]: prevQ[id] > 1 ? prevQ[id] - 1 : 1,
     }));
   };
 
@@ -81,6 +81,7 @@ const Products = ({ setCart }) => {
                   type="number"
                   className="quantity"
                   placeholder="Enter quantity"
+                  min="1"
                   value={quantities[product.id] || 1} // Default to 1 if no quantity is set
                   onChange={(e) =>
                     setQuantities({
