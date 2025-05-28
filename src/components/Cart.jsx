@@ -2,7 +2,7 @@ import React from "react";
 import { Link, useNavigate, useOutletContext } from "react-router-dom";
 
 const Cart = () => {
-  const { cart } = useOutletContext();
+  const { cart, setCart } = useOutletContext();
   //in cart we have product and quantity, item represents the product and quantity, product represents id, name, price, etc. so if we want to display the product name, we can access it through item.name or
   let navigate = useNavigate();
 
@@ -15,6 +15,12 @@ const Cart = () => {
 
     navigate("/shopping/checkout");
   };
+
+  const removeFromCart = (id) => {
+    const updatedCart = cart.filter((item) => item.id !== id);
+    setCart(updatedCart);
+  };
+
   return (
     <div>
       <h1>Your Cart</h1>
@@ -30,6 +36,9 @@ const Cart = () => {
                   <p>Number of items: {item.quantity}</p>
                   <h2>{item.title}</h2>
                   <p>Total Price: {item.price * item.quantity}$</p>
+                  <button onClick={() => removeFromCart(item.id)}>
+                    Remove from Cart
+                  </button>
                 </div>
               </li>
             ))}
