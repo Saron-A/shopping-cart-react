@@ -9,7 +9,10 @@ const Products = ({ setCart }) => {
   const [products, setProducts] = useState([]); // we are going to have objects in this array
 
   const [quantities, setQuantities] = useState({}); // this will hold the quantities for all products
-  const [clicked, setClicked] = useState({}); // this will be used to track if the user has clicked on a product
+  const [clicked, setClicked] = useState(() => {
+    const savedClicked = localStorage.getItem("clicked");
+    return savedClicked ? JSON.parse(savedClicked) : {};
+  }); // this will be used to track if the user has clicked on a product
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -24,6 +27,10 @@ const Products = ({ setCart }) => {
     };
     fetchProducts();
   }, []);
+
+  useEffect(() => {
+    localStorage.setItem("clicked", JSON.stringify(clicked));
+  }, [clicked]);
 
   const handleSubmit = (e, product) => {
     e.preventDefault();
@@ -46,7 +53,9 @@ const Products = ({ setCart }) => {
   };
 
   const handleClick = (id) => {
-    setClicked({ ...clicked, [id]: true });
+    const updatedClicked = { ...clicked, [id]: true };
+    setClicked(updatedClicked);
+    localStorage.setItem("clicked", JSON.stringify(updatedClicked));
   };
 
   return (
