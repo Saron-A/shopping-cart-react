@@ -2,11 +2,11 @@ import React from "react";
 import { Outlet, useOutletContext } from "react-router-dom";
 
 const Shopping = () => {
-  const { cart, setCart } = useOutletContext();
+  const { cart, setCart, clicked, setClicked } = useOutletContext();
 
   return (
     <div>
-      <Outlet context={{ cart, setCart }} />
+      <Outlet context={{ cart, setCart, clicked, setClicked }} />
     </div>
   );
 };

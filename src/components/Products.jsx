@@ -1,18 +1,14 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { Link, useNavigate } from "react-router-dom";
-import Cart from "./Cart.jsx"; // Import Cart component if needed
-import "../index.css"; // Import your CSS styles
+import { Link, useOutletContext } from "react-router-dom";
+import "../index.css";
 
-const Products = ({ setCart }) => {
-  const navigate = useNavigate();
+const Products = () => {
+  const { setCart, clicked, setClicked } = useOutletContext(); // we can use this to access the cart state from the parent component
+  // const navigate = useNavigate();
   const [products, setProducts] = useState([]); // we are going to have objects in this array
 
   const [quantities, setQuantities] = useState({}); // this will hold the quantities for all products
-  const [clicked, setClicked] = useState(() => {
-    const savedClicked = localStorage.getItem("clicked");
-    return savedClicked ? JSON.parse(savedClicked) : {};
-  }); // this will be used to track if the user has clicked on a product
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -60,77 +56,81 @@ const Products = ({ setCart }) => {
 
   return (
     <div className="products">
-      {products.map((product) => (
-        <li key={product.id}>
-          <div className="product">
-            <div className="fetched-data">
-              <h3>{product.title}</h3>
-              <div className="others">
-                <div className="img-desc">
-                  <img src={product.image} alt="" />
-                  <p className="desc">{product.description}</p>
-                </div>
+      <ul>
+        {products.map((product) => (
+          <li key={product.id}>
+            <div className="product">
+              <div className="fetched-data">
+                <h3>{product.title}</h3>
+                <div className="others">
+                  <div className="img-desc">
+                    <img src={product.image} alt={product.title} />
+                    <p className="desc">{product.description}</p>
+                  </div>
 
-                <div className="info">
-                  <p className="price">Price: {product.price}$</p>
-                  <p className="rating">Rating: {product.rating.rate}/5</p>
-                  <p className="count">
-                    {product.rating.count > 10
-                      ? "In Stock"
-                      : product.rating.count <= 10 && product.rating.count > 0
-                      ? product.rating.count
-                      : "Out of Stock"}
-                  </p>
+                  <div className="info">
+                    <p className="price">Price: {product.price}$</p>
+                    <p className="rating">Rating: {product.rating.rate}/5</p>
+                    <p className="count">
+                      {product.rating.count > 10
+                        ? "In Stock"
+                        : product.rating.count <= 10 && product.rating.count > 0
+                        ? product.rating.count
+                        : "Out of Stock"}
+                    </p>
+                  </div>
                 </div>
               </div>
+              <div className="extras">
+                <form action="" onSubmit={(e) => handleSubmit(e, product)}>
+                  <input
+                    type="number"
+                    className="quantity"
+                    placeholder="Enter quantity"
+                    min="1"
+                    value={quantities[product.id] ?? 1} // Default to 1 if no quantity is set
+                    onChange={(e) =>
+                      setQuantities({
+                        ...quantities,
+                        [product.id]: Math.max(1, Number(e.target.value) || 1),
+                      })
+                    }
+                  />
+                  <button
+                    type="button"
+                    onClick={() => incrementProduct(product.id)}
+                  >
+                    +
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => decrementProduct(product.id)}
+                  >
+                    -
+                  </button>
+                  <button
+                    className="addtocart"
+                    onClick={() => handleClick(product.id)}
+                    type="submit"
+                    style={{
+                      backgroundColor: clicked[product.id]
+                        ? "green"
+                        : "#f6f6f6",
+                      color: clicked[product.id] ? "white" : "#3d3d3d",
+                      padding: "10px 20px",
+                      border: "none",
+                      borderRadius: "5px",
+                      cursor: "pointer",
+                    }}
+                  >
+                    {clicked[product.id] ? " Added!" : "  Add to Cart"}
+                  </button>
+                </form>
+              </div>
             </div>
-            <div className="extras">
-              <form action="" onSubmit={(e) => handleSubmit(e, product)}>
-                <input
-                  type="number"
-                  className="quantity"
-                  placeholder="Enter quantity"
-                  min="1"
-                  value={quantities[product.id] || 1} // Default to 1 if no quantity is set
-                  onChange={(e) =>
-                    setQuantities({
-                      ...quantities,
-                      [product.id]: e.target.value,
-                    })
-                  }
-                />
-                <button
-                  type="button"
-                  onClick={() => incrementProduct(product.id)}
-                >
-                  +
-                </button>
-                <button
-                  type="button"
-                  onClick={() => decrementProduct(product.id)}
-                >
-                  -
-                </button>
-                <button
-                  className="addtocart"
-                  onClick={() => handleClick(product.id)}
-                  type="submit"
-                  style={{
-                    backgroundColor: clicked[product.id] ? "green" : "#f6f6f6",
-                    color: clicked[product.id] ? "white" : "#3d3d3d",
-                    padding: "10px 20px",
-                    border: "none",
-                    borderRadius: "5px",
-                    cursor: "pointer",
-                  }}
-                >
-                  {clicked[product.id] ? " Added!" : "  Add to Cart"}
-                </button>
-              </form>
-            </div>
-          </div>
-        </li>
-      ))}
+          </li>
+        ))}
+      </ul>
       <Link className="links" to="/shopping/cart" style={{}}>
         Go to Cart
       </Link>

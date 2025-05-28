@@ -6,6 +6,7 @@
   box-sizing: border-box;
 
   font-family: "Inter", sans-serif;
+  list-style: none;
 }
 
 .container {
@@ -23,7 +24,7 @@
   text-align: center;
 }
 
-.products {
+.products ul {
   /* display: flex;
   flex-wrap: wrap; */
   column-gap: 2rem;
@@ -31,7 +32,7 @@
   align-items: center;
   list-style: none;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(375px, 1fr));
+  grid-template-columns: repeat(3, minmax(375px, 1fr));
   grid-template-rows: auto;
   justify-content: center;
 }
