@@ -26,11 +26,11 @@ const Products = ({ setCart }) => {
 
   const handleSubmit = (e, product) => {
     e.preventDefault();
-    const quantity = quantities[product.id] || 0; //access the quantity for the specific product by its id
+    const quantity = quantities[product.id] || 1; //access the quantity for the specific product by its id
     if (quantity <= 0) return; // Prevent adding products with zero or negative quantity
     const itemToAdd = { ...product, quantity }; // Create a new item with the product details and quantity
     setCart((prevCart) => [...prevCart, itemToAdd]); // Add the new item to the cart
-    navigate("/shopping/cart"); // Navigate to the shopping page
+    // navigate("/shopping/cart"); // Navigate to the shopping page
   };
 
   const incrementProduct = (id) => {
@@ -76,7 +76,7 @@ const Products = ({ setCart }) => {
                   type="number"
                   className="quantity"
                   placeholder="Enter quantity"
-                  value={quantities[product.id] || 0}
+                  value={quantities[product.id] || 1} // Default to 1 if no quantity is set
                   onChange={(e) =>
                     setQuantities({
                       ...quantities,
@@ -96,7 +96,9 @@ const Products = ({ setCart }) => {
                 >
                   -
                 </button>
-                <button type="submit">Add to Cart</button>
+                <button className="addtocart" type="submit">
+                  Add to Cart
+                </button>
               </form>
             </div>
           </div>

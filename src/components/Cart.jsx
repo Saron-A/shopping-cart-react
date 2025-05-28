@@ -22,21 +22,25 @@ const Cart = () => {
   };
 
   return (
-    <div>
+    <div className="cart-container">
       <h1>Your Cart</h1>
-      <div
-        className="cart"
-        style={{ border: "1px solid black", padding: "1rem" }}
-      >
+      <div className="cart">
         {cart.length <= 0
           ? "Your cart is empty!"
           : cart.map((item) => (
               <li key={item.id}>
                 <div className="item">
-                  <p>Number of items: {item.quantity}</p>
-                  <h2>{item.title}</h2>
-                  <p>Total Price: {item.price * item.quantity}$</p>
-                  <button onClick={() => removeFromCart(item.id)}>
+                  <div className="sub-item">
+                    <p>Quantity: {item.quantity}</p>
+                    <p>Total Price: {item.price * item.quantity}$</p>
+                  </div>
+
+                  <h3>{item.title}</h3>
+
+                  <button
+                    onClick={() => removeFromCart(item.id)}
+                    className="remove-btn"
+                  >
                     Remove from Cart
                   </button>
                 </div>
@@ -45,14 +49,9 @@ const Cart = () => {
       </div>
 
       <button
+        className="checkout-btn"
         onClick={() => handleCheckout(cart)}
         type="button"
-        style={{
-          border: "1px solid black",
-          borderRadius: "1rem",
-          padding: "0.5rem 1rem",
-          marginTop: "1rem",
-        }}
       >
         Check Out
       </button>
